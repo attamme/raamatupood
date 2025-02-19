@@ -11,7 +11,7 @@ const mysql = require('mysql2')
 
 app.get('/', (req, res) => {
     res.render('index')
-    console.log('server started')
+    console.log('server started at local')
 })
 
 app.listen(3002)
