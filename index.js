@@ -10,7 +10,7 @@ app.set('layout', 'layout')
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(expressLayouts)
 
-const mysql = require('mysql2')
+// const mysql = require('mysql2')
 
 app.get('/', (req, res) => {
     res.render('index', {adminView: false})
@@ -28,5 +28,6 @@ app.get('/admin', (req, res) => {
 //app.listen(3002, () => {
 //    console.log('server started at local port 3002')
 //})
+// ^^ only for local testing ^^
 
 module.exports = app; // <== important for Vercel
