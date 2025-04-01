@@ -7,8 +7,8 @@ router.get('/', async (req, res) => {
     const [rows] = await db.query('SELECT 1 + 1 AS result');
     res.send(`✅ DB works! 1 + 1 = ${rows[0].result}`);
   } catch (err) {
-    console.error('❌ DB error:', err.message);
-    res.status(500).send('❌ DB error: ' + err.message);
+    console.error('❌ DB error:', err); // 👈 log the full error
+    res.status(500).send('❌ DB error: ' + err.message); // 👈 show message to browser
   }
 });
 
