@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const app = express();
 const expressLayouts = require('express-ejs-layouts')
+const dbTestRoute = require('./DB/test');
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
@@ -9,6 +10,7 @@ app.set('layout', 'layout')
 
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(expressLayouts)
+app.use('/db-test', dbTestRoute);
 
 // const mysql = require('mysql2')
 
