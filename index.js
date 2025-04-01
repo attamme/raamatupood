@@ -1,4 +1,4 @@
-const express = require('express');
+/* const express = require('express');
 const path = require('path');
 const app = express();
 const expressLayouts = require('express-ejs-layouts')
@@ -16,7 +16,7 @@ app.use(expressLayouts)
     res.render('index', {adminView: false})
     console.log('server started at local')
 }) */
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
     res.send('home page works')
 })
 
@@ -26,11 +26,21 @@ app.get('/login', (req, res) => {
 
 app.get('/admin', (req, res) => {
     res.render('admin', { adminView: true })
-})
+}) */
 
 //app.listen(3002, () => {
 //    console.log('server started at local port 3002')
 //})
 // ^^ only for local testing ^^
 
-module.exports = app; // <== important for Vercel
+/* module.exports = app; */ // <== important for Vercel
+ 
+
+const express = require('express');
+const app = express();
+
+app.get('/', (req, res) => {
+  res.send('It works!');
+});
+
+module.exports = app;
