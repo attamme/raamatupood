@@ -1,1 +1,15 @@
-<!-- common layout for pages -->
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Raamatupood</title>
+  </head>
+<body>
+
+<%- include('header', { adminView: adminView || false }) %>
+<main>
+    <%- body %>
+</main>
+<%- include('footer') %>

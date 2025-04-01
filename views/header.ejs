@@ -1,9 +1,15 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="style.css">
-    <title>Raamatupood</title>
-  </head>
-<body>
+<header>
+  <nav>
+      <% if (adminView) { %>
+          <button class="nav-button" onclick="window.location.href='index'">Avaleht</button>
+          <button class="nav-button" onclick="window.location.href='login'">Logi välja</button>
+      <% } else { %>
+          <button class="nav-button">Raamatute nimekiri</button>
+          <button class="nav-button">Tuntud autorid</button>
+          <button class="nav-button">Parimad raamatud</button>
+          <button class="nav-button">Kontakt</button>
+          <input type="text" placeholder="Otsi..." class="search-input">
+          <button class="nav-button" onclick="window.location.href='login'">Logi sisse</button>
+      <% } %>
+   </nav>
+</header>
