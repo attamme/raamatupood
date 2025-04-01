@@ -12,9 +12,12 @@ app.use(expressLayouts)
 
 // const mysql = require('mysql2')
 
-app.get('/', (req, res) => {
+/* app.get('/', (req, res) => {
     res.render('index', {adminView: false})
     console.log('server started at local')
+}) */
+app.get('/', (req, res) => {
+    res.send('home page works')
 })
 
 app.get('/login', (req, res) => {
