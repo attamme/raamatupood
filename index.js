@@ -25,6 +25,8 @@ app.get('/admin', (req, res) => {
     res.render('admin', { adminView: true })
 })
 
-app.listen(3002, () => {
-    console.log('server started at local port 3002')
-})
+//app.listen(3002, () => {
+//    console.log('server started at local port 3002')
+//})
+
+module.exports = app; // <== important for Vercel
