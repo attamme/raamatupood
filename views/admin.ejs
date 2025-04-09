@@ -1,33 +1,43 @@
-    <main>
-        <section class="admin-table">
-            <h1>Haldamine</h1>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Raamat</th>
-                        <th>Autor</th>
-                        <th>Kirjastaja</th>
-                        <th>Aasta</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Margus ja puudumised</td>
-                        <td>Riina</td>
-                        <td>Meelis</td>                       
+<h1>Haldamine</h1>
 
-                        <td>2001</td>
-                        <td><button class="add-button">Muuda</button> <button class="add-button">Kustuta</button></td>
-                    </tr>
-                    <tr>
-                        <td>Alkohooliku päevik</td>
-                        <td>Mats</td>
-                        <td>Aaron</td>
-                        <td>2026</td>
-                        <td><button class="add-button">Muuda</button> <button class="add-button">Kustuta</button></td>
-                    </tr>
-                    <!-- Lisa rohkem ridu vastavalt vajadusele -->
-                </tbody>
-            </table>
-        </section>
-    </main>
+<form id="bookForm" method="POST" action="/admin/books">
+  <input name="ISBN_kood" placeholder="ISBN">
+  <input name="pealkiri" placeholder="Pealkiri">
+  <input name="aasta" placeholder="Aasta">
+  <input name="hind" placeholder="Hind">
+  <input name="autor_nimi" placeholder="Autor">
+  <input name="kirjastaja_nimi" placeholder="Kirjastaja">
+  <input name="Laod_id" placeholder="Laod ID">
+  <input name="kogus" placeholder="Kogus">
+  <button type="submit">Lisa raamat</button>
+</form>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pealkiri</th><th>Autor</th><th>Kirjastaja</th><th>Aasta</th><th>Hind</th><th>Kogus</th><th>Tegevused</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% books.forEach(book => { %>
+      <tr>
+        <form method="POST" action="/admin/books/update/<%= book.ISBN_kood %>">
+          <td><input name="pealkiri" value="<%= book.pealkiri %>"></td>
+          <td><%= book.Autor %></td>
+          <td><%= book.Kirjastaja %></td>
+          <td><input name="aasta" value="<%= book.aasta %>"></td>
+          <td><input name="hind" value="<%= book.hind %>"></td>
+          <td><%= book.Kogus_laos %></td>
+          <td>
+            <button type="submit">Muuda</button>
+          </form>
+          <form method="POST" action="/admin/books/delete/<%= book.ISBN_kood %>" style="display:inline;">
+            <button type="submit">Kustuta</button>
+          </form>
+        </td>
+      </tr>
+    <% }) %>
+  </tbody>
+</table>
+<%- include('popup') %>
+<script src="/js/script.js"></script>

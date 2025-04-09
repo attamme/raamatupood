@@ -4,14 +4,21 @@ const app = express();
 const expressLayouts = require('express-ejs-layouts')
 const dbTestRoute = require('./DB/test');
 require('dotenv').config();
+const adminRoutes = require('./routes/admin')
+const multer = require('multer');
+const upload = multer(); // stores data in memory
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 app.set('layout', 'layout')
 
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(expressLayouts)
 app.use('/db',dbTestRoute);
+app.use('/admin', adminRoutes)
 
 // const mysql = require('mysql2')
 
