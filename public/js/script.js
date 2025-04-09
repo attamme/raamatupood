@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('📦 script loaded');
   
     const form = document.getElementById('bookForm');
     const modal = document.getElementById('authorPublisherModal');
@@ -19,10 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
       });
   
       const { autorMissing, kirjastajaMissing } = await res.json();
-      console.log('✅ Check result:', autorMissing, kirjastajaMissing);
   
       if (autorMissing || kirjastajaMissing) {
-        console.log('👀 opening popup');
   
         if (autorMissing) {
           authorFields.classList.remove('hidden');
@@ -54,10 +51,8 @@ document.addEventListener('DOMContentLoaded', () => {
           extraFields.forEach(field => {
             const input = document.getElementById(field);
             if (input) {
-              console.log(`📥 Appending ${field} =`, input.value);
               formData.append(field, input.value);
             } else {
-              console.warn(`⚠️ Field ${field} not found in DOM`);
             }
           });
           

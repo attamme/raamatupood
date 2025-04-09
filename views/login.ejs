@@ -1,9 +1,9 @@
 <main>
     <section class="login-panel">
         <h1>Sisselogimine</h1>
-        <form onsubmit="event.preventDefault(); window.location.href='admin';">
-            <input type="text" placeholder="Kasutajanimi" required>
-            <input type="password" placeholder="Parool" required>
+        <form method="POST" action="/login">
+            <input type="text" name="username" placeholder="Kasutajanimi" required>
+            <input type="password" name="password" placeholder="Parool" required>
             <button type="submit" class="nav-button">Logi sisse</button>
         </form>
     </section>

@@ -5,6 +5,14 @@ const db = require('../DB/db');
 const multer = require('multer');
 const upload = multer(); // stores data in memory
 
+router.use((req, res, next) => {
+    // Check if user is logged in
+    if (!req.session || !req.session.isAdmin) {
+        return res.redirect('/login');
+    }
+    next();
+});
+
 
 // VIEW
 router.get('/', async (req, res) => {
