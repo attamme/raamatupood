@@ -10,7 +10,7 @@ const adminRoutes = require('./routes/admin')
 const multer = require('multer');
 const upload = multer(); // stores data in memory
 const session = require('express-session');
-
+const dbBooksRoute = require('./routes/books')
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 app.set('layout', 'layout')
@@ -26,7 +26,8 @@ app.use(session({
 }))
 app.use('/db',dbTestRoute);
 app.use('/admin', adminRoutes)
-
+const booksRoute = require('./routes/books');
+app.use('/books', booksRoute);
 
 // const mysql = require('mysql2')
 

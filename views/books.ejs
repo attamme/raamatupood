@@ -1,0 +1,19 @@
+
+<h1>Raamatute nimekiri</h1>
+
+<% if (books.length === 0) { %>
+  <p>Raamatuid ei leitud.</p>
+<% } else { %>
+  <ul class="book-list">
+    <% books.forEach(book => { %>
+      <li class="book-item">
+        <h2><%= book.pealkiri %></h2>
+        <p><strong>Aasta:</strong> <%= book.aasta %></p>
+        <p><strong>Hind:</strong> <%= book.hind %> €</p>
+        <p><strong>Autor:</strong> <%= book.Autor %></p>
+        <p><strong>Kirjastus:</strong> <%= book.Kirjastaja %></p>
+        <p><strong>Kogus laos:</strong> <%= book.Kogus_laos %></p>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>
