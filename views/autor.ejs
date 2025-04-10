@@ -1,2 +1,20 @@
-const popularAuthorsRouter = require('./routes/popularAuthors');
+<!-- const popularAuthorsRouter = require('./routes/popularAuthors');
 app.use('/popular-authors', popularAuthorsRouter);
+ -->
+
+
+<h1>Autorite nimekiri</h1>
+
+<% if (authors.length === 0) { %>
+  <p>Autoreid ei leitud.</p>
+<% } else { %>
+  <ul class="book-list">
+    <% authors.forEach(author => { %>
+      <li class="book-item">
+        <h2><%= authors.autor %></h2>
+        <p>Autor: <%= authors.autor %></p>
+        <p>Raamatud: <%= authors.raamatud %></p>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>

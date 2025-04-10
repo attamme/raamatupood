@@ -1,16 +1,17 @@
 <header>
-  <nav>
-      <% if (adminView) { %>
-          <button class="nav-button" onclick="window.location.href='/'">Avaleht</button>
-          <button class="nav-button" onclick="window.location.href='login'">Logi välja</button>
-      <% } else { %>
-          <button class="nav-button" onclick="window.location.href='books'">Raamatute nimekiri</button>
-          <button class="nav-button" onclick="window.location.href='autor'">Tuntud autorid</button>
-          <button class="nav-button" onclick="window.location.href='books'">Parimad raamatud</button>
-          <button class="nav-button" onclick="window.location.href='contact'">Kontakt</button>
-          <button class="nav-button" onclick="window.location.href='cart'">Ostukorv</button>
-          <input type="text" placeholder="Otsi..." class="search-input">
-          <button class="nav-button" onclick="window.location.href='login'">Logi sisse</button>
-      <% } %>
-   </nav>
+    <nav>
+        <% if (adminView) { %>
+            <button class="nav-button" onclick="window.location.href='/'">Avaleht</button>
+            <button class="nav-button" onclick="window.location.href='login'">Logi välja</button>
+        <% } else { %>
+            <button class="nav-button" onclick="window.location.href='/'">Avaleht</button>
+            <button class="nav-button" onclick="window.location.href='books'">Raamatute nimekiri</button>
+            <button class="nav-button" onclick="window.location.href='autor'">Tuntud autorid</button>
+            <button class="nav-button" onclick="window.location.href='books'">Parimad raamatud</button>
+            <button class="nav-button" onclick="window.location.href='contact'">Kontakt</button>
+            <button class="nav-button" onclick="window.location.href='cart'">Ostukorv</button>
+            <input type="text" placeholder="Otsi..." class="search-input">
+            <button class="nav-button" onclick="window.location.href='login'">Logi sisse</button>
+        <% } %>
+    </nav>
 </header>

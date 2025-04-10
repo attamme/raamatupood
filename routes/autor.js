@@ -1,20 +1,18 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../DB/db');
+const AuthorModel = require('../models/Author'); // import capital A
 
 // GET /popular-authors
 router.get('/', async (req, res) => {
     try {
-        const [results] = await db.query(`
-            SELECT AUTORID.nimi AS autor_nimi, COUNT(RAAMATUD.Aut_id) AS raamatute_arv
-            FROM RAAMATUD
-            JOIN AUTORID ON RAAMATUD.Aut_id = AUTORID.Aut_id
-            GROUP BY RAAMATUD.Aut_id
-            ORDER BY raamatute_arv DESC
-            LIMIT 10
-        `);
+        const authors = await AuthorModel.getAllAuthors();
+        const authorBooks = await Promise.all(authors.map(author => AuthorModel.getAuthorBooks(author.Aut_id)));
+        const results = authors.map((author, index) => ({
+            ...author,
+            books: authorBooks[index]
+        }));
 
-        res.render('autor', { authors: results });
+        res.render('autor', { authors: results, adminView: req.session?.isAdmin || false });
     } catch (err) {
         console.error('Viga autorite päringus:', err);
         res.status(500).send('Serveri viga');

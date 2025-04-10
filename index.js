@@ -40,6 +40,10 @@ app.get('/', (req, res) => {
     res.render('index', {adminView: false})
 })
 
+app.get('/autor', (req, res) => {
+    res.render('autor', {adminView: false})
+})
+
 app.get('/login', (req, res) => {
     res.render('login', { adminView: false })
 })
