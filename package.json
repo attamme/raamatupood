@@ -9,7 +9,6 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bootstrap": "^5.3.3",
     "bootstrapt": "^1.1.1",
@@ -25,5 +24,6 @@
     "mysql2": "^3.14.0",
     "node": "^18.20.8",
     "trim": "^1.0.1"
-  }
+  },
+  "description": ""
 }

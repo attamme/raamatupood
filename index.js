@@ -24,7 +24,10 @@ app.use(session({
     resave: false,
     saveUninitialized: true,
 }))
+
 app.use('/db',dbTestRoute);
+const popularAuthorsRouter = require('./routes/autor');
+app.use('/autor', popularAuthorsRouter);
 app.use('/admin', adminRoutes)
 const booksRoute = require('./routes/books');
 app.use('/books', booksRoute);
