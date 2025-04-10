@@ -8,12 +8,23 @@ app.use('/popular-authors', popularAuthorsRouter);
 <% if (authors.length === 0) { %>
   <p>Autoreid ei leitud.</p>
 <% } else { %>
-  <ul class="book-list">
+  <ul class="author-list">
     <% authors.forEach(author => { %>
-      <li class="book-item">
-        <h2><%= authors.autor %></h2>
-        <p>Autor: <%= authors.autor %></p>
-        <p>Raamatud: <%= authors.raamatud %></p>
+      <li class="author-item">
+        <h2><%= author.nimi %></h2>
+        <ul class="book-list">
+          <% if (author.books.length === 0) { %>
+            <li>Raamatuid ei leitud.</li>
+          <% } else { %>
+            <% author.books.forEach(book => { %>
+              <li>
+                <strong><%= book.pealkiri %></strong> –
+                <%= book.aasta %> –
+                <%= book.hind %>€
+              </li>
+            <% }) %>
+          <% } %>
+        </ul>
       </li>
     <% }) %>
   </ul>
