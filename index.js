@@ -11,6 +11,8 @@ const multer = require('multer');
 const upload = multer(); // stores data in memory
 const session = require('express-session');
 const dbBooksRoute = require('./routes/books')
+const db = require('./DB/db');
+
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 app.set('layout', 'layout')
@@ -52,16 +54,17 @@ app.post('/login', async(req, res) => {
     if (username === adminUser && password === adminPass) {
         req.session.isAdmin = true;
         res.redirect('/admin');
+        return;
     }
 
     // check for user
-    const [rows] = await db.query(`SELECT * FROM KLIENDID WHERE nimi = ? AND parool = ?`, [username, password]);
+    /* const [rows] = await db.query(`SELECT * FROM KLIENDID WHERE nimi = ? AND parool = ?`, [username, password]);
 
     if (rows.length > 0) {
         req.session.isCustomer = true;
         req.session.customerId = rows[0].klnt_id;
         return res.redirect('/'); // redirect to home page or any other page
-    }
+    } */
         res.send('Vale kasutajanimi või parool!');
 })
 
