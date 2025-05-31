@@ -1,8 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../config/db');
 
-const Author = sequelize.define('AUTORID', {
-    Aut_id: {
+const Publisher = sequelize.define('KIRJASTAD', {
+    Kirj_id: {
         type: Sequelize.INTEGER.UNSIGNED,
         autoIncrement: true,
         allowNull: false,
@@ -16,12 +16,16 @@ const Author = sequelize.define('AUTORID', {
         type: Sequelize.STRING(100),
         allowNull: false
     },
+    telefoninumber: {
+        type: Sequelize.STRING(15),
+        allowNull: false
+    },
     kodulehe_url: {
         type: Sequelize.STRING(150),
     }
 }, {
-    tableName: 'AUTORID',
+    tableName: 'KIRJASTAD',
     timestamps: false
 })
 
-module.exports = Author;
+module.exports = Publisher;

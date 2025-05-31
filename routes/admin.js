@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const Book = require('../models/Book');
-const db = require('../DB/db');
+// const Book = require('../models/BookOld');
+// const db = require('../config/db');
 const multer = require('multer');
 const upload = multer(); // stores data in memory
 

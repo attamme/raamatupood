@@ -1,0 +1,33 @@
+.book-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.book-item {
+    background: white;
+    padding: 16px;
+    border-radius: 8px;
+    width: 300px;
+    box-shadow: 0 0 8px rgba(0,0,0,0.1);
+}
+
+.book-card h2 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+}
+
+.add-to-cart {
+    background-color: #f7941d;
+    border: none;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.add-to-cart:hover {
+    background-color: #e27c00;
+}  

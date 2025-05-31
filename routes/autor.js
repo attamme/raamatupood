@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const AuthorModel = require('../models/Author'); // import capital A
+// const AuthorModel = require('../models/AuthorOld'); // import capital A
 
 // GET /popular-authors
 router.get('/', async (req, res) => {

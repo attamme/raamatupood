@@ -1,19 +1,25 @@
 
 <h1>Raamatute nimekiri</h1>
 
-<% if (books.length === 0) { %>
-  <p>Raamatuid ei leitud.</p>
-<% } else { %>
-  <ul class="book-list">
-    <% books.forEach(book => { %>
-      <li class="book-item">
-        <h2><%= book.pealkiri %></h2>
-        <p><strong>Aasta:</strong> <%= book.aasta %></p>
-        <p><strong>Hind:</strong> <%= book.hind %> €</p>
-        <p><strong>Autor:</strong> <%= book.Autor %></p>
-        <p><strong>Kirjastus:</strong> <%= book.Kirjastaja %></p>
-        <p><strong>Kogus laos:</strong> <%= book.Kogus_laos %></p>
-      </li>
-    <% }) %>
-  </ul>
-<% } %>
+<div class="book-grid">
+  <% if (books.length === 0) { %>
+    <p>Raamatuid ei leitud.</p>
+  <% } else { %>
+      <% books.forEach(book => { %>
+        <div class="book-item">
+          <h2><%= book.pealkiri %></h2>
+          <p><strong>Aasta:</strong> <%= book.aasta %></p>
+          <p><strong>Hind:</strong> <%= book.hind %> €</p>
+          <p><strong>Autor:</strong> <%= book.Author?.nimi %></p>
+          <p><strong>Kirjastus:</strong> <%= book.Publisher?.nimi %></p>
+          <p><strong>Kogus laos:</strong> <%= book.Kogus_laos %></p>
+
+          <!-- Add to cart -->
+          <form action="/cart/add" method="POST">
+            <input type="hidden" name="isbn" value="<%= book.ISBN_kood %>">
+            <button type="submit" class="add-to-cart">Lisa ostukorvi</button>
+          </form>
+        </div>
+      <% }) %>
+  <% } %>
+</div>

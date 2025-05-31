@@ -23,6 +23,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^3.14.0",
     "node": "^18.20.8",
+    "sequelize": "^6.37.7",
     "trim": "^1.0.1"
   },
   "description": ""

@@ -1,0 +1,27 @@
+.login-panel {
+    max-width: 400px;
+    margin: 80px auto;
+    padding: 30px;
+    text-align: center;
+    background-color: #fff4e6;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.login-panel h1 {
+    margin-bottom: 20px;
+    color: #e16d00;
+}
+
+.login-panel form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.login-panel input {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+}

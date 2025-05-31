@@ -1,0 +1,32 @@
+<h1>Sinu ostukorv</h1>
+
+<% if (cartItems.length === 0) { %>
+  <p>Ostukorv on tühi.</p>
+<% } else { %>
+  <table class="cart-table">
+    <thead>
+      <tr>
+        <th>Raamat</th>
+        <th>Kogus</th>
+        <th>Hind</th>
+        <th>Kokku</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% cartItems.forEach(item => { %>
+        <tr>
+          <td><%= item.pealkiri %></td>
+          <td><%= item.kogus %></td>
+          <td><%= item.hind.toFixed(2) %> €</td>
+          <td><%= (item.kogus * item.hind).toFixed(2) %> €</td>
+        </tr>
+      <% }) %>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="3"><strong>Kogusumma:</strong></td>
+        <td><strong><%= total %> €</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+<% } %>

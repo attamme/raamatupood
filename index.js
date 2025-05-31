@@ -1,22 +1,28 @@
 require('dotenv').config();
 
 const express = require('express');
-const path = require('path');
+const bodyParser = require('body-parser');
+
 const app = express();
+
+// bro idek what is in here
+const path = require('path');
 const expressLayouts = require('express-ejs-layouts')
-const dbTestRoute = require('./DB/test');
-require('dotenv').config();
+// const dbTestRoute = require('./config/test');
 const adminRoutes = require('./routes/admin')
 const multer = require('multer');
 const upload = multer(); // stores data in memory
 const session = require('express-session');
 const dbBooksRoute = require('./routes/books')
-const db = require('./DB/db');
+const db = require('./config/db');
+const cartRoutes = require('./routes/cart');
+
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'))
 app.set('layout', 'layout')
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
@@ -27,7 +33,18 @@ app.use(session({
     saveUninitialized: true,
 }))
 
-app.use('/db',dbTestRoute);
+// sequelize???
+const sequelize = require('./config/db');
+sequelize.sync()
+    .then(() => {
+        console.log('Database connected successfully');
+    })
+    .catch(err => {
+        console.error('Unable to connect to the database:', err);
+    });
+
+app.use('/cart', cartRoutes)
+// app.use('/db',dbTestRoute);
 const popularAuthorsRouter = require('./routes/autor');
 app.use('/autor', popularAuthorsRouter);
 app.use('/admin', adminRoutes)
@@ -40,8 +57,16 @@ app.get('/', (req, res) => {
     res.render('index', {adminView: false})
 })
 
+app.get('/books', (req, res) => {
+    res.render('books', {adminView: false})
+})
+
 app.get('/autor', (req, res) => {
     res.render('autor', {adminView: false})
+})
+
+app.get('/contact', (req, res) => {
+    res.render('contact', {adminView: false})
 })
 
 app.get('/login', (req, res) => {
@@ -89,6 +114,6 @@ app.get('/logout', (req, res) => {
 
 app.listen(process.env.PORT || 3000, () => {
     console.log("Server running on port " + (process.env.PORT || 3000));
-  });
+});
 
 module.exports = app; 
