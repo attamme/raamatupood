@@ -13,7 +13,7 @@
           <p><strong>Hind:</strong> <%= book.hind %> €</p>
           <p><strong>Autor:</strong> <%= book.AUTORID?.nimi %></p>
           <p><strong>Kirjastus:</strong> <%= book.KIRJASTAD?.nimi %></p>
-          <p><strong>Kogus laos:</strong> <%= book.Kogus_laos %></p>
+          <p><strong>Kogus laos:</strong> <%= book.LAOSEISUD?.kogus %></p>
 
           <!-- Add to cart -->
           <form action="/cart/add" method="POST">

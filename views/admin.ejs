@@ -23,11 +23,11 @@
       <tr>
         <form method="POST" action="/admin/books/update/<%= book.ISBN_kood %>">
           <td><input name="pealkiri" value="<%= book.pealkiri %>"></td>
-          <td><%= book.Autor %></td>
-          <td><%= book.Kirjastaja %></td>
+          <td><%= book.AUTORID?.nimi %></td>
+          <td><%= book.KIRJASTAD?.nimi %></td>
           <td><input name="aasta" value="<%= book.aasta %>"></td>
           <td><input name="hind" value="<%= book.hind %>"></td>
-          <td><%= book.Kogus_laos %></td>
+          <td><%= book.LAOSEISUD?.kogus %></td>
           <td>
             <button type="submit">Muuda</button>
           </form>
