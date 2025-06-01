@@ -1,5 +1,10 @@
     <h1><%= book.pealkiri %></h1>
-    <p><strong>Autor:</strong> <%= book.AUTORID?.nimi %></p>
+    <p>
+        <strong>Autor:</strong> 
+        <a href="/autor/<%= book.AUTORID?.Aut_id %>">
+            <%= book.AUTORID?.nimi %>
+        </a>
+    </p>
     <p><strong>Kirjastus:</strong> <%= book.KIRJASTAD?.nimi %></p>
     <p><strong>ISBN:</strong> <%= book.ISBN_kood %></p>
     <p><strong>Kirjeldus:</strong> <%= book.kirjeldus || 'Puudub' %></p>

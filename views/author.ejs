@@ -8,9 +8,11 @@
     <% } else { %>
     <% author.RAAMATUDs.forEach(book => { %>
         <li>
-            <strong><%= book.pealkiri %></strong> –
-                <%= book.aasta %> –
-                <%= book.hind %>€
+            <a href="/books/<%= book.ISBN_kood %>">
+                <strong><%= book.pealkiri %></strong>
+            </a> –
+            <%= book.aasta %> –
+            <%= book.hind %>€
         </li>
     <% }) %>
     <% } %>
