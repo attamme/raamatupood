@@ -1,0 +1,17 @@
+<h1><%= author.nimi %></h1>
+
+<h1>Raamatud: </h1>
+
+<ul class="book-list">
+    <% if (author.RAAMATUDs.length === 0) { %>
+        <li>Raamatuid ei leitud.</li>
+    <% } else { %>
+    <% author.RAAMATUDs.forEach(book => { %>
+        <li>
+            <strong><%= book.pealkiri %></strong> –
+                <%= book.aasta %> –
+                <%= book.hind %>€
+        </li>
+    <% }) %>
+    <% } %>
+</ul>

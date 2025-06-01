@@ -1,0 +1,15 @@
+
+<h1>Autorite nimekiri</h1>
+
+<% if (authors.length === 0) { %>
+  <p>Autoreid ei leitud.</p>
+<% } else { %>
+  <ul class="author-list">
+    <% authors.forEach(author => { %>
+      <a href="/autor/<%= author.Aut_id %>" class="author-item-link">
+      <li class="author-item">
+        <h2><%= author.nimi %></h2>
+      </li>
+    <% }) %>
+  </ul>
+<% } %>

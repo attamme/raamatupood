@@ -11,6 +11,7 @@ const adminRoutes = require('./routes/admin')
 const authRoutes = require('./routes/auth');
 const pagesRoutes = require('./routes/pages');
 const booksRoutes = require('./routes/books');
+const authorsRoutes = require('./routes/authors');
 const cartRoutes = require('./routes/cart');
 
 const app = express();
@@ -36,6 +37,7 @@ app.use('/admin', adminRoutes)
 app.use(authRoutes);
 app.use(pagesRoutes);
 app.use('/books', booksRoutes);
+app.use('/authors', authorsRoutes);
 app.use('/cart', cartRoutes)
 
 const sequelize = require('./config/db');
@@ -47,7 +49,7 @@ sequelize.sync()
         console.error('Unable to connect to the database:', err);
     });
 
-const popularAuthorsRouter = require('./routes/autor');
+const popularAuthorsRouter = require('./routes/authors');
 app.use('/autor', popularAuthorsRouter);
 
 // const mysql = require('mysql2')
