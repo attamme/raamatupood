@@ -5,6 +5,12 @@
     justify-content: center;
 }
 
+.book-item-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 .book-item {
     background: white;
     padding: 16px;
