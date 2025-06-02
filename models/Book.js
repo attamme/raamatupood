@@ -23,7 +23,16 @@ const Book = sequelize.define('RAAMATUD', {
     },
     Aut_id: {
         type: Sequelize.INTEGER.UNSIGNED
-    }
+    },
+    pildi_fail: {
+        type: Sequelize.STRING,  // faili nimi või URL
+        allowNull: true
+      },
+    kirjeldus: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      }
+      
 }, {
     tableName: 'RAAMATUD',
     timestamps: false

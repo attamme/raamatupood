@@ -1,45 +1,87 @@
+body {
+  height: 100%;
+  display: flex;
+  background-color: #ffcc99;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+  margin: 0;
+  padding: 40px 20px 60px;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2.4rem;
+  color: #d97300;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
 .book-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
+  flex-grow: 1;
+  height:auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 7vh;
+  justify-content: center;
 }
 
 .book-item-link {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  width: 300px;
 }
 
 .book-item {
-    background: white;
-    padding: 16px;
-    border-radius: 8px;
-    width: 300px;
-    box-shadow: 0 0 8px rgba(0,0,0,0.1);
-    transition: transform 0.2s;}
+  background: white;
+  padding: 20px 24px;
+  border-radius: 12px;
+  box-shadow: 0 6px 15px rgba(0,0,0,0.1);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
 
 .book-item:hover {
-    transform: translateY(-5px);
+  transform: translateY(-8px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
 }
-body {
-    background-color: #ffcc99;
-  }
-.book-card h2 {
-    font-size: 1.2rem;
-    margin-bottom: 10px;
+
+.book-item h2 {
+  font-size: 1.5rem;
+  margin-bottom: 14px;
+  color: #d97300;
+  flex-shrink: 0;
+}
+
+.book-item p {
+  font-size: 1rem;
+  margin: 6px 0;
+  flex-grow: 1;
+  color: #555;
 }
 
 .add-to-cart {
-    background-color: #f7941d;
-    border: none;
-    color: white;
-    padding: 8px 12px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
+  background-color: #f7941d;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: auto; /* push button to bottom */
+  transition: background-color 0.3s ease;
 }
 
 .add-to-cart:hover {
-    background-color: #e27c00;
-}  
+  background-color: #e27c00;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .book-item-link, .book-item {
+    width: 100%;
+  }
+}

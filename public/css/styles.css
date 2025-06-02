@@ -12,7 +12,7 @@ body {
   }
 /* Header ja nav */
 header {
-    background-color: #ffcc99;
+    background-color: #ffdca7;
     padding: 20px 0;
     text-align: center;
 }
@@ -85,6 +85,7 @@ nav {
 
 /* Footer */
 footer {
+    z-index: -1;
     width: 100%;
     bottom: 0;
     background-color: #f0e6dc;
