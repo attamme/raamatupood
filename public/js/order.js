@@ -36,44 +36,74 @@ document.addEventListener('DOMContentLoaded', () => {
     if (saatmisviis) {
         saatmisviis.addEventListener('change', function() {
             if (pakiautomaatFields) pakiautomaatFields.style.display = this.value === 'pakiautomaat' ? 'block' : 'none';
-            if (kullerFields) kullerFields.style.display = this.value === 'kuller' ? 'block' : 'none';
+            if (kullerFields) {
+                kullerFields.style.display = this.value === 'kuller' ? 'block' : 'none';
+                const kullerSelect = kullerFields.querySelector('select[name="kuller_provider"]');
+                if (kullerSelect) kullerSelect.required = this.value === 'kuller';
+            }
+            // If you want, do the same for pakiautomaat-select required attribute
+            if (pakiautomaatFields) {
+                const pakiautomaatSelect = pakiautomaatFields.querySelector('select[name="pakiautomaat"]');
+                if (pakiautomaatSelect) pakiautomaatSelect.required = this.value === 'pakiautomaat';
+            }
         });
     }
 
     // --- API fetch for pakiautomaadid (Omniva example) ---
     // Only run if the pakiautomaat select exists
+    const pakiautomaatProvider = document.getElementById('pakiautomaat-provider');
     const pakiautomaatSelect = document.getElementById('pakiautomaat-select');
     const pakiautomaatSearch = document.getElementById('pakiautomaat-search');
     let pakiautomaatOptions = [];
+    let allProvidersData = {
+        omniva: [],
+        smartpost: [],
+        dpd: []
+    };
 
-    if (pakiautomaatSelect) {
+    // Fetch all providers at once
+    function fetchProviders() {
         fetch('https://www.omniva.ee/locations.json')
             .then(res => res.json())
             .then(data => {
-                pakiautomaatOptions = data.filter(location => location.A0_NAME === 'EE');
-                pakiautomaatOptions.forEach(location => {
-                    const option = document.createElement('option');
-                    option.value = location.NAME;
-                    option.textContent = `${location.NAME}, ${location.A1_NAME}, ${location.A2_NAME}`;
-                    pakiautomaatSelect.appendChild(option);
-                });
+                allProvidersData.omniva = data.filter(loc => loc.A0_NAME === 'EE');
+                renderPakiaautomaatOptions();
             });
+    }
 
-        if (pakiautomaatSearch) {
-            pakiautomaatSearch.addEventListener('input', function() {
-                const search = this.value.toLowerCase();
-                // Remove all except the first (placeholder) option
-                pakiautomaatSelect.options.length = 1;
-                pakiautomaatOptions.forEach(location => {
-                    const text = `${location.NAME}, ${location.A1_NAME}, ${location.A2_NAME}`.toLowerCase();
-                    if (text.includes(search)) {
-                        const option = document.createElement('option');
-                        option.value = location.NAME;
-                        option.textContent = `${location.NAME}, ${location.A1_NAME}, ${location.A2_NAME}`;
-                        pakiautomaatSelect.appendChild(option);
-                    }
-                });
-            });
-        }
+    function renderPakiaautomaatOptions() {
+        let options = allProvidersData.omniva.map(loc => ({
+            value: loc.NAME,
+            text: `${loc.NAME}, ${loc.A1_NAME}, ${loc.A2_NAME || ''}`.trim()
+        }));
+        pakiautomaatOptions = options;
+        filterAndRenderOptions();
+    }
+
+    function filterAndRenderOptions() {
+        const search = (pakiautomaatSearch.value || '').toLowerCase();
+        const currentValue = pakiautomaatSelect.value;
+        pakiautomaatSelect.options.length = 1; // Keep placeholder
+        let found = false;
+        pakiautomaatOptions.forEach(opt => {
+            if (opt.text.toLowerCase().includes(search)) {
+                const option = document.createElement('option');
+                option.value = opt.value;
+                option.textContent = opt.text;
+                if (opt.value === currentValue) {
+                    option.selected = true;
+                    found = true;
+                }
+                pakiautomaatSelect.appendChild(option);
+            }
+        });
+        // If the previously selected value is not in the filtered list, select nothing
+        if (!found) pakiautomaatSelect.selectedIndex = 0;
+    }
+
+    if (pakiautomaatSelect && pakiautomaatProvider) {
+        fetchProviders();
+        pakiautomaatProvider.addEventListener('change', renderPakiaautomaatOptions);
+        if (pakiautomaatSearch) pakiautomaatSearch.addEventListener('input', filterAndRenderOptions);
     }
 });

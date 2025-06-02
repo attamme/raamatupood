@@ -50,10 +50,15 @@
     </div>
 
     <div id="pakiautomaat-fields" style="display: none; margin-top: 10px;">
-        <label>Vali pakiautomaat:</label><br>
+        <label>Vali pakiautomaadi teenusepakkuja:</label><br>
+        <select id="pakiautomaat-provider" style="margin-bottom: 8px;">
+            <option value="omniva">Omniva</option>
+            <option value="smartpost">Smartpost</option>
+            <option value="dpd">DPD</option>
+        </select><br>
         <input type="text" id="pakiautomaat-search" placeholder="Otsi aadressi või nime järgi..." style="width: 100%; margin-bottom: 8px;">
         <select id="pakiautomaat-select" name="pakiautomaat" required size="8" style="width: 100%;">
-            <option value="" disabled selected>Vali pakiautomaat</option>
+            <option value="" disabled>Vali pakiautomaat</option>
             <!-- Options will be populated by JS -->
         </select>
     </div>
