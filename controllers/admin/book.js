@@ -16,42 +16,54 @@ class AdminController {
 
     async insertBook(req, res) {
         try {
-            const autorNimi = req.body.autor || req.body.autor_nimi;
-            const kirjastajaNimi = req.body.kirjastaja || req.body.kirjastaja_nimi;
-
-            // Check if author exists, if not create it
-            let author = await Author.findOne({ where: { nimi: autorNimi } });
-            if (!author) {
-                author = await Author.create({ nimi: autorNimi });
-            }
-
-            // Check if publisher exists, if not create it
-            let publisher = await Publisher.findOne({ where: { nimi: kirjastajaNimi } });
-            if (!publisher) {
-                publisher = await Publisher.create({ nimi: kirjastajaNimi });
-            }
-
-            // Prepare book data
-            const bookData = {
-                ...req.body,
-                Kirj_id: publisher.kirj_id,
-                Aut_id: author.aut_id
-            };
-
-            delete bookData.autor; // Remove the original author name field
-            delete bookData.autor_nimi; // Remove the original author name field if it exists
-            delete bookData.kirjastaja; // Remove the original publisher name field
-            delete bookData.kirjastaja_nimi; // Remove the original publisher name field if it exists
-
-            await Book.create(bookData);
-            
-            res.redirect('/admin');
+          const autorNimi = req.body.autor_nimi || req.body.autor;
+          const kirjastajaNimi = req.body.kirjastaja_nimi || req.body.kirjastaja;
+      
+          let author = await Author.findOne({ where: { nimi: autorNimi } });
+          if (!author) {
+            console.log('Creating new author:', autorNimi);
+            author = await Author.create({
+              nimi: autorNimi,
+              aadress: req.body.autor_aadress || '',
+              kodulehe_url: req.body.autor_url || ''
+            });
+          }
+      
+          let publisher = await Publisher.findOne({ where: { nimi: kirjastajaNimi } });
+          if (!publisher) {
+            console.log('Creating new publisher:', kirjastajaNimi);
+            publisher = await Publisher.create({
+              nimi: kirjastajaNimi,
+              aadress: req.body.kirjastaja_aadress || '',
+              telefoninumber: req.body.kirjastaja_telefon || '',
+              kodulehe_url: req.body.kirjastaja_url || ''
+            });
+          }
+      
+          const bookData = {
+            ...req.body,
+            Kirj_id: publisher.kirj_id,
+            Aut_id: author.aut_id,
+          };
+      
+          delete bookData.autor;
+          delete bookData.autor_nimi;
+          delete bookData.kirjastaja;
+          delete bookData.kirjastaja_nimi;
+          delete bookData.autor_aadress;
+          delete bookData.autor_url;
+          delete bookData.kirjastaja_aadress;
+          delete bookData.kirjastaja_telefon;
+          delete bookData.kirjastaja_url;
+      
+          await Book.create(bookData);
+          res.redirect('/admin');
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Error inserting book');
+          console.error(error);
+          res.status(500).send('Error inserting book');
         }
-    }
-
+      }
+      
     // check if author/publisher exists
     async checkAuthorPublisher(req, res) {
         const { autor, kirjastaja } = req.body;
@@ -75,41 +87,60 @@ class AdminController {
 
     async updateBook(req, res) {
         try {
-            const isbn = req.params.isbn;
-
-            const autorNimi = req.body.autor || req.body.autor_nimi;
-            const kirjastajaNimi = req.body.kirjastaja || req.body.kirjastaja_nimi;
-
-            // Check if author exists, if not create it
-            let author = await Author.findOne({ where: { nimi: autorNimi } });
-            if (!author) {
-                author = await Author.create({ nimi: autorNimi });
-            }
-
-            // Check if publisher exists, if not create it
-            let publisher = await Publisher.findOne({ where: { nimi: kirjastajaNimi } });
-            if (!publisher) {
-                publisher = await Publisher.create({ nimi: kirjastajaNimi });
-            }
-            // Prepare book data
-            const bookData = {
-                ...req.body,
-                Kirj_id: publisher.kirj_id,
-                Aut_id: author.aut_id
-            };
-
-            delete bookData.autor; // Remove the original author name field
-            delete bookData.autor_nimi; // Remove the original author name field if it exists
-            delete bookData.kirjastaja; // Remove the original publisher name field
-            delete bookData.kirjastaja_nimi; // Remove the original publisher name field if it exists
-
-            await Book.update(updateData, { where: { ISBN_kood: isbn } });
-            res.redirect('/admin');
+          const isbn = req.params.isbn;
+      
+          const autorNimi = req.body.autor_nimi || req.body.autor;
+          const kirjastajaNimi = req.body.kirjastaja_nimi || req.body.kirjastaja;
+      
+          if (!autorNimi || autorNimi.trim() === '') {
+            return res.status(400).send('Author name is required');
+          }
+          if (!kirjastajaNimi || kirjastajaNimi.trim() === '') {
+            return res.status(400).send('Publisher name is required');
+          }
+      
+          let author = await Author.findOne({ where: { nimi: autorNimi } });
+          if (!author) {
+            author = await Author.create({
+              nimi: autorNimi,
+              aadress: req.body.autor_aadress || '',
+              kodulehe_url: req.body.autor_url || ''
+            });
+          }
+      
+          let publisher = await Publisher.findOne({ where: { nimi: kirjastajaNimi } });
+          if (!publisher) {
+            publisher = await Publisher.create({
+              nimi: kirjastajaNimi,
+              aadress: req.body.kirjastaja_aadress || '',
+              telefoninumber: req.body.kirjastaja_telefon || '',
+              kodulehe_url: req.body.kirjastaja_url || ''
+            });
+          }
+      
+          const bookData = {
+            ...req.body,
+            Kirj_id: publisher.kirj_id,
+            Aut_id: author.aut_id,
+          };
+      
+          delete bookData.autor;
+          delete bookData.autor_nimi;
+          delete bookData.kirjastaja;
+          delete bookData.kirjastaja_nimi;
+          delete bookData.autor_aadress;
+          delete bookData.autor_url;
+          delete bookData.kirjastaja_aadress;
+          delete bookData.kirjastaja_telefon;
+          delete bookData.kirjastaja_url;
+      
+          await Book.update(bookData, { where: { ISBN_kood: isbn } });
+          res.redirect('/admin');
         } catch (error) {
-            console.error(error);
-            res.status(500).send('Error updating book');
+          console.error(error);
+          res.status(500).send('Error updating book');
         }
-    }
+      }    
 
     async deleteBook(req, res) {
         try {

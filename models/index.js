@@ -4,10 +4,10 @@ const Publisher = require('./publisher');
 const Cart = require('./cart');
 const CartItem = require('./cart_item');
 
-Book.belongsTo(Author, { foreignKey: 'Aut_id' });
+Book.belongsTo(Author, { foreignKey: 'Aut_id'});
 Author.hasMany(Book, { foreignKey: 'Aut_id' });
 
-Book.belongsTo(Publisher, { foreignKey: 'Kirj_id' });
+Book.belongsTo(Publisher, { foreignKey: 'Kirj_id'});
 Publisher.hasMany(Book, { foreignKey: 'Kirj_id' });
 
 Cart.hasMany(Cart, { foreignKey: 'Ost_krvd_id' });

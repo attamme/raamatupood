@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const autor = form.autor_nimi.value;
       const kirjastaja = form.kirjastaja_nimi.value;
   
-      const res = await fetch('/admin/check-author-publisher', {
+      const res = await fetch('/admin/checkAuthorPublisher', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ autor, kirjastaja })
