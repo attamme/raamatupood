@@ -16,9 +16,20 @@
       <% cartItems.forEach(item => { %>
         <tr>
           <td><%= item.pealkiri %></td>
-          <td><%= item.kogus %></td>
+          <td>
+            <form action="/cart/update" method="POST" style="display: inline;">
+              <input type="hidden" name="isbn" value="<%= item.ISBN_kood %>">
+              <input type="number" name="kogus" value="<%= item.kogus %>" min="1" style="width: 50px;">
+              <button type="submit">Muuda</button>
+            </form>
+          </td>
           <td><%= item.hind.toFixed(2) %> €</td>
           <td><%= (item.kogus * item.hind).toFixed(2) %> €</td>
+          <td>
+            <form action="/cart/remove" method="POST" style="display: inline;">
+              <input type="hidden" name="isbn" value="<%= item.ISBN_kood %>">
+              <button type="submit">Eemalda</button>
+            </form>
         </tr>
       <% }) %>
     </tbody>

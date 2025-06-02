@@ -68,6 +68,7 @@ class CartController {
 
             console.log(cartItemsRaw.map(item => item.toJSON()));
             const cartItems = cartItemsRaw.map(item => ({
+                ISBN_kood: item.ISBN_kood,
                 pealkiri: item.raamat,
                 kogus: item.kogus,
                 hind: item.RAAMATUD ? Number(item.RAAMATUD.hind) : 0, // Use book's price if available
@@ -78,6 +79,31 @@ class CartController {
             console.log('Cart items retrieved:', cartItems);
         } catch (error) {
             console.error('Error getting cart items:', error);
+            res.status(500).json({ message: 'Internal server error' });
+        }
+    }
+
+    async updateItemQuantity(req, res) {
+        const { isbn, kogus } = req.body;
+        try {
+            const cartId = await this.getOrCreateCart(req);
+            const kogusNumber = Number(kogus);
+            if (kogusNumber <= 0) {
+                // Remove item if quantity is 0 or less
+                await CartItem.destroy({
+                    where: { ISBN_kood: isbn, Ost_krvd_id: cartId }
+                });
+            } else {
+                // Update quantity
+                await CartItem.update(
+                    {kogus: kogusNumber}, 
+                    {where: { ISBN_kood: isbn, Ost_krvd_id: cartId }}
+                );
+            }
+            res.redirect('/cart'); // Redirect to the cart page
+            console.log('Item quantity updated:', isbn, 'to', kogusNumber);
+        } catch (error) {
+            console.error('Error updating item quantity:', error);
             res.status(500).json({ message: 'Internal server error' });
         }
     }
