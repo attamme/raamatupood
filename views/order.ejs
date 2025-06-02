@@ -1,8 +1,63 @@
 <h1>Telli raamatud</h1>
 <form action="/order" method="POST">
     <label>Nimi: <input type="text" name="nimi" required></label><br>
-    <label>Aadress: <input type="text" name="aadress" required></label>
     <label>E-post: <input type="email" name="email" required></label><br>
+    <label>Aadress: <input type="text" name="aadress" required></label>
     <label>Telefon: <input type="text" name="telefon" required></label><br>
+
+    <label>Makseviis: 
+        <select name="makseviis" required>
+            <option value="" disabled selected>Vali makseviis</option>
+            <option value="pangalink">Pangalink</option>
+            <option value="pangakaart">Pangakaart</option>
+            <option value="arve">Arve</option>
+            <option value="paypal">PayPal</option>
+        </select>
+    </label><br>
+
+    <label>Tarneviis: 
+        <select name="saatmisviis" required>
+            <option value="" disabled selected>Vali tarneviis</option>
+            <option value="kohapealt">Kohapealt</option>
+            <option value="pakiautomaat">Pakiautomaat</option>
+            <option value="kuller">Kuller</option>
+        </select>
+    </label><br>
+    <!-- makseviisid  details, show up only when selected said makseviis-->
+    <div id="card-fields" style="display: none; margin-top: 10px;">
+        <label>Kaardi number: <input type="text" name="card_number" maxlength="19" pattern="\d{16,19}"></label><br>
+        <label>Aegumiskuupäev: <input type="text" name="card_expiry" placeholder="MM/YY" pattern="\d{2}/\d{2}"></label><br>
+        <label>CVC: <input type="text" name="card_cvc" maxlength="4" pattern="\d{3,4}"></label><br>
+    </div>
+
+    <div id="bank-fields" style="display: none; margin-top: 10px;">
+        <label>Vali pank:</label><br>
+        <label><input type="radio" name="bank" value="swedbank" required> Swedbank</label><br>
+        <label><input type="radio" name="bank" value="seb" required> SEB</label><br>
+        <label><input type="radio" name="bank" value="lhv" required> LHV</label><br>
+        <label><input type="radio" name="bank" value="luminor" required> Luminor</label><br>
+        <label><input type="radio" name="bank" value="coop" required> Coop Pank</label><br>
+    </div>
+
+    <!-- tarneviisid details, show up only when selected said tarneviisid -->
+    <div id="kuller-fields" style="display: none; margin-top: 10px;">
+        <label>Vali kuller:</label><br>
+        <select name="kuller_provider" required>
+            <option value="" disabled selected>Vali kuller</option>
+            <option value="dpd">DPD</option>
+            <option value="smartpost">Smartpost</option>
+        </select>
+    </div>
+
+    <div id="pakiautomaat-fields" style="display: none; margin-top: 10px;">
+        <label>Vali pakiautomaat:</label><br>
+        <input type="text" id="pakiautomaat-search" placeholder="Otsi aadressi või nime järgi..." style="width: 100%; margin-bottom: 8px;">
+        <select id="pakiautomaat-select" name="pakiautomaat" required size="8" style="width: 100%;">
+            <option value="" disabled selected>Vali pakiautomaat</option>
+            <!-- Options will be populated by JS -->
+        </select>
+    </div>
+
     <button type="submit">Esita tellimus</button>
+    <script src="/js/order.js"></script>
 </form>
