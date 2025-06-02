@@ -1,19 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const Cart = require('../models/Cart'); // import capital C
+const cartController = require('../controllers/cart');
 
-router.post('/add', async (req, res) => {
-    const { isbn } = req.body; // ISBN code from the request body
-    const klnt_id = 1 // TEMP Client ID from the session
-
-    try {
-        await Cart.addItemToCart(klnt_id, isbn); // Add item to the cart
-        res.redirect('/books'); // Redirect to the books page
-        console.log('Item added to cart:', isbn);
-    } catch (error) {
-        console.error('Error adding item to cart:', error);
-        res.status(500).json({ message: 'Internal server error' });
-    }
-});
+router.post('/add', (req, res) => cartController.addItemToCart(req, res));
+router.get('/', (req, res) => cartController.getCartItems(req, res));
+router.post('/remove', (req, res) => cartController.removeItemFromCart(req, res));
 
 module.exports = router;
