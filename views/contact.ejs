@@ -1,19 +1,28 @@
 <div class="contact-page">
     <h1>KONTAKT</h1>
 
-<h2>VÕTA ÜHENDUST</h2>
-<p><strong>Tel:</strong> +372 5555 5555</p>
-<p><strong>E-mail:</strong> info@raamatupood.ee</p>
-<p><strong>Aadress:</strong> Tartu, Eesti</p>
+    <h2>VÕTA ÜHENDUST</h2>
+    <p><strong>Tel:</strong> +372 5555 5555</p>
+    <p><strong>E-mail:</strong> info@raamatupood.ee</p>
+    <p><strong>Aadress:</strong> Tartu, Eesti</p>
 
-<h3>VÕI KIRJUTA OTSE</h3>
-<div>
-    <label>Nimi:</label>
-        <input type="text" disabled placeholder="Sinu nimi">
-    </div>
-    <div>
-        <label>Tekst:</label>
-        <textarea rows="6" disabled placeholder="Sinu sõnum"></textarea>
-    </div>
-    <button disabled>Saada</button>
+    <h3>VÕI KIRJUTA OTSE</h3>
+
+    <% if (typeof success !== 'undefined' && success) { %>
+        <div class="success-message">
+            <p>Aitäh, <%= nimi %>! Sinu sõnum on saadetud.</p>
+        </div>
+    <% } else { %>
+        <form action="/contact" method="POST">
+            <div>
+                <label>Nimi:</label>
+                <input type="text" name="nimi" placeholder="Sinu nimi" required>
+            </div>
+            <div>
+                <label>Tekst:</label>
+                <textarea name="tekst" rows="6" placeholder="Sinu sõnum" required></textarea>
+            </div>
+            <button type="submit">Saada</button>
+        </form>
+    <% } %>
 </div>
