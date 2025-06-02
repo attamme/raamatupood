@@ -1,0 +1,25 @@
+<h1>Otsingu tulemused: "<%= q %>"</h1>
+<% if (results.length === 0) { %>
+    <p>Tulemusi ei leitud.</p>
+<% } else { %>
+    <ul>
+        <% results.forEach(book => { %>
+        <a href="/books/<%= book.ISBN_kood %>" class="book-item-link">
+        <div class="book-item">
+          <h2><%= book.pealkiri %></h2>
+          <p><strong>Aasta:</strong> <%= book.aasta %></p>
+          <p><strong>Hind:</strong> <%= book.hind %> €</p>
+          <p><strong>Autor:</strong> <%= book.AUTORID?.nimi %></p>
+          <p><strong>Kirjastus:</strong> <%= book.KIRJASTAD?.nimi %></p>
+          <p><strong>Kogus laos:</strong> <%= book.LAOSEISUD?.kogus %></p>
+
+          <!-- Add to cart -->
+          <form action="/cart/add" method="POST">
+            <input type="hidden" name="isbn" value="<%= book.ISBN_kood %>">
+            <button type="submit" class="add-to-cart">Lisa ostukorvi</button>
+          </form>
+        </div>
+        </a>
+        <% }) %>
+    </ul>
+<% } %>

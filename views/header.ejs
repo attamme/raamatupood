@@ -10,7 +10,9 @@
             <button class="nav-button" onclick="window.location.href='/books'">Parimad raamatud</button>
             <button class="nav-button" onclick="window.location.href='/contact'">Kontakt</button>
             <button class="nav-button" onclick="window.location.href='/cart'">Ostukorv</button>
-            <input type="text" placeholder="Otsi..." class="search-input">
+            <form action="/search" method="GET" style="display: inline;">
+                <input type="text" name="q" placeholder="Otsi..." class="search-input" required>
+                <button type="submit" class="search-button">Otsi</button>
             <button class="nav-button" onclick="window.location.href='/login'">Logi sisse</button>
         <% } %>
     </nav>

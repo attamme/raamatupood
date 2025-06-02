@@ -15,5 +15,15 @@ router.get('/order', (req, res) => res.render('order', { adminView: false }))
 router.post('/order', async (req, res) => {
     res.render('order-success', { adminView: false})
 })
+router.get('/search', async (req, res) => {
+    const { q } = req.query;
+    const Book = require('../models/book');
+    const results = await Book.findAll({
+        where: {
+            pealkiri: { [require('sequelize').Op.like]: `%${q}%` }
+        },
+    })
+    res.render('search-results', { adminView: false, results, q });
+})
 
 module.exports = router;
