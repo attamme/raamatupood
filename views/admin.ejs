@@ -27,7 +27,9 @@
           <td><input name="kirjastaja_nimi" value="<%= book.KIRJASTAD?.nimi %>"></td>
           <td><input name="aasta" value="<%= book.aasta %>"></td>
           <td><input name="hind" value="<%= book.hind %>"></td>
-          <td><input name="kogus" value="<%= book.LAOSEISUD?.kogus %>"></td>
+          <td>
+            <input name="kogus" value="<%= book.LAOSEISUDs && book.LAOSEISUDs.length ? book.LAOSEISUDs.reduce((sum, ws) => sum + ws.kogus, 0) : '' %>">
+          </td>
           <td>
             <button type="submit">Muuda</button>
           </form>

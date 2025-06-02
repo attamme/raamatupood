@@ -1,12 +1,13 @@
-const { Book, Author, Publisher } = require('../../models');
+const { Book, Author, Publisher, Warehouse, WarehouseState } = require('../../models');
 
 class AdminController {
 
     async getAllBooks(req, res) {
         try {
             const books = await Book.findAll({
-                include: [{model:Author}, {model:Publisher}]
+                include: [{model:Author}, {model:Publisher}, {model:WarehouseState}]
             });
+            console.log(JSON.stringify(books, null, 2));
             res.render('admin', { books, adminView: true });
         } catch (error) {
             console.error(error);
@@ -42,8 +43,8 @@ class AdminController {
       
           const bookData = {
             ...req.body,
-            Kirj_id: publisher.kirj_id,
-            Aut_id: author.aut_id,
+            Kirj_id: publisher.Kirj_id,
+            Aut_id: author.Aut_id,
           };
       
           delete bookData.autor;
@@ -57,6 +58,14 @@ class AdminController {
           delete bookData.kirjastaja_url;
       
           await Book.create(bookData);
+          
+          // After creating a book
+          await WarehouseState.create({
+            ISBN_kood: bookData.ISBN_kood,
+            Laod_id: req.body.Laod_id,
+            kogus: req.body.kogus
+          });
+      
           res.redirect('/admin');
         } catch (error) {
           console.error(error);
